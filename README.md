@@ -26,8 +26,8 @@ can be reimplemented with `maybify`:
 const pizza = maybify(new PizzaBuilder())
 	.addDough()
 	.addSauce()
-	.maybeAddCheese(() => addCheese, 10)
-	.maybeAddPepperoni(() => addPepperoni, 5)
+	.maybeAddCheese(addCheese, 10) // addCheese is passed as a flag
+	.maybeAddPepperoni(() => addPepperoni, 5) // addPepperoni is passed as a predicate
 	.maybeAddBacon(() => addBacon)
 	.bake();
 ```

@@ -37,10 +37,19 @@ const maybify = (object, withF = undefined) => {
 						throw new Error(`Cannot find a maybified method for '${maybifiedKey}'`);
 					}
 					return function(predicate, ...args) {
-						if ( !predicate ) {
+						let predicateResult;
+						switch ( typeof(predicate) ) {
+						case 'boolean':
+							predicateResult = predicate;
+							break;
+						case 'function':
+							predicateResult = predicate();
+							break;
+						case 'undefined':
 							throw new Error(`No predicate supplied for '${maybifiedKey}'`);
+						default:
+							throw new Error(`Cannot handle predicate of ${predicate}`);
 						}
-						const predicateResult = predicate();
 						if ( !predicateResult ) {
 							return !withF ? this : withF();
 						}

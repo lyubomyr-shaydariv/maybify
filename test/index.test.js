@@ -4,7 +4,7 @@ const maybify = require('../index.js');
 describe("maybify", () => {
 
 	class Builder {
-		constructor() { this.string = ''; this.number = 0; }
+		constructor() { this.string = ''; this.number = 0; this.a = ''; this.b = ''; this.c = ''; }
 		withA(a) { this.a = a; return this; }
 		withB(b) { this.b = b; return this; }
 		withC(c) { this.c = c; return this; }
@@ -13,6 +13,18 @@ describe("maybify", () => {
 
 
 	describe('can', () => {
+
+		it('work with flags', () => {
+			expect(maybify(new Builder()).maybeWithA(true, "A1").maybeWithB(false, "B2").maybeWithC(false, "C3").toString()).to.equal("A1,,");
+			expect(maybify(new Builder()).maybeWithA(false, "A1").maybeWithB(true, "B2").maybeWithC(false, "C3").toString()).to.equal(",B2,");
+			expect(maybify(new Builder()).maybeWithA(false, "A1").maybeWithB(false, "B2").maybeWithC(true, "C3").toString()).to.equal(",,C3");
+		});
+
+		it('work with predicates', () => {
+			expect(maybify(new Builder()).maybeWithA(() => true, "A1").maybeWithB(() => false, "B2").maybeWithC(() => false, "C3").toString()).to.equal("A1,,");
+			expect(maybify(new Builder()).maybeWithA(() => false, "A1").maybeWithB(() => true, "B2").maybeWithC(() => false, "C3").toString()).to.equal(",B2,");
+			expect(maybify(new Builder()).maybeWithA(() => false, "A1").maybeWithB(() => false, "B2").maybeWithC(() => true, "C3").toString()).to.equal(",,C3");
+		});
 
 		it('work with the builder pattern implementation', () => {
 			const convert = (withA, withB, withC) => maybify(new Builder())
