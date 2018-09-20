@@ -1,6 +1,6 @@
 {
   "name": "maybify",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "`maybify` returns an object proxy that wraps existing methods of the object in conditional `maybe*` wrappers.",
   "main": "index.js",
   "author": "Lyubomyr Shaydariv",
