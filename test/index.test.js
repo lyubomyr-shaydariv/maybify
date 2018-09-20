@@ -4,7 +4,7 @@ const maybify = require('../index.js');
 describe("maybify", () => {
 
 	class Builder {
-		constructor() { this.string = ''; this.number = 0; this.a = ''; this.b = ''; this.c = ''; }
+		constructor() { this.string = ''; this.number = 0; }
 		withA(a) { this.a = a; return this; }
 		withB(b) { this.b = b; return this; }
 		withC(c) { this.c = c; return this; }

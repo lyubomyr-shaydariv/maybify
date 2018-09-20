@@ -56,8 +56,7 @@ const maybify = (object, withF = undefined) => {
 						return maybifiedValue.apply(this, args);
 					};
 				}
-				// ... else
-				throw new Error(`Cannot resolve '${key}'`);
+				return value;
 			default:
 				throw new Error(`Cannot handle '${typeof(value)}' of '${key}'`);
 			}
