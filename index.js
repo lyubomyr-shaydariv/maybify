@@ -1,5 +1,11 @@
-const isUpperCase = require('is-upper-case')
-const lowerCaseFirst = require('lower-case-first');
+const isUpperCase = (s) => s === s.toUpperCase();
+
+const lowerCaseFirst = (s) => {
+	if ( typeof(s) === 'undefined' ) {
+		return s;
+	}
+	return s.toString().replace(/^(.)(.*)$/g, (_, g1, g2) => g1.toLowerCase() + g2);
+};
 
 const isPrefixedWith = (s, prefix) => s.startsWith(prefix) && isUpperCase(s[prefix.length]);
 
